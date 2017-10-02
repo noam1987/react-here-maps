@@ -12,6 +12,8 @@ import getMarkerIcon from "./utils/get-marker-icon";
 // props that can be passed to the HEREMap Marker component
 export interface MarkerProps extends H.map.Marker.Options, H.geo.IPoint {
   bitmap?: string;
+  styleClass?: string;
+  onTap?: () => void;
 }
 
 // declare an interface containing the potential context parameters
@@ -72,6 +74,7 @@ export class Marker extends React.Component<MarkerProps, object> {
       styleClass,
       onTap
     } = this.props;
+
 
     let marker: H.map.DomMarker | H.map.Marker;
 
