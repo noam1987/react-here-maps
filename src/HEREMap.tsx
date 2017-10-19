@@ -8,6 +8,11 @@ import getLink from "./utils/get-link";
 import getPlatform from "./utils/get-platform";
 import getScriptMap from "./utils/get-script-map";
 
+require('./srcFiles/mapsjs-core')
+require('./srcFiles/mapsjs-mapevents')
+require('./srcFiles/mapsjs-service')
+require('./srcFiles/mapsjs-ui')
+
 // declare an interface containing the required and potential
 // props that can be passed to the HEREMap component
 export interface HEREMapProps extends H.Map.Options {
@@ -68,61 +73,59 @@ export class HEREMap
   }
 
   public componentDidMount() {
-    onAllLoad(() => {
-      const {
-        appId,
-        appCode,
-        center,
-        hidpi,
-        interactive,
-        secure,
-        zoom,
-      } = this.props;
+    const {
+      appId,
+      appCode,
+      center,
+      hidpi,
+      interactive,
+      secure,
+      zoom,
+    } = this.props;
 
-      // get the platform to base the maps on
-      const platform = getPlatform({
-        app_code: appCode,
-        app_id: appId,
-        useHTTPS: secure === true,
-      });
-
-      const defaultLayers = platform.createDefaultLayers({
-        ppi: hidpi ? 320 : 72,
-      });
-
-      const hereMapEl = ReactDOM.findDOMNode(this);
-
-      const map = new H.Map(
-        hereMapEl.querySelector(".map-container"),
-        defaultLayers.normal.map,
-        {
-          center,
-          pixelRatio: hidpi ? 2 : 1,
-          zoom,
-        },
-      );
-
-      if (interactive !== false) {
-        // make the map interactive
-        // MapEvents enables the event system
-        // Behavior implements default interactions for pan/zoom
-        const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-
-        // create the default UI for the map
-        const ui = H.ui.UI.createDefault(map, defaultLayers);
-
-        this.setState({
-          behavior,
-          ui,
-        });
-      }
-
-      // make the map resize when the window gets resized
-      window.addEventListener("resize", this.debouncedResizeMap);
-
-      // attach the map object to the component"s state
-      this.setState({ map });
+    // get the platform to base the maps on
+    const platform = getPlatform({
+      app_code: appCode,
+      app_id: appId,
+      useHTTPS: secure === true,
     });
+
+    const defaultLayers = platform.createDefaultLayers({
+      ppi: hidpi ? 320 : 72,
+    });
+
+    const hereMapEl = ReactDOM.findDOMNode(this);
+
+    const map = new H.Map(
+      hereMapEl.querySelector(".map-container"),
+      defaultLayers.normal.map,
+      {
+        center,
+        pixelRatio: hidpi ? 2 : 1,
+        zoom,
+      },
+    );
+
+    if (interactive !== false) {
+      // make the map interactive
+      // MapEvents enables the event system
+      // Behavior implements default interactions for pan/zoom
+      const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+      // create the default UI for the map
+      const ui = H.ui.UI.createDefault(map, defaultLayers);
+
+      this.setState({
+        behavior,
+        ui,
+      });
+    }
+
+    // make the map resize when the window gets resized
+    window.addEventListener("resize", this.debouncedResizeMap);
+
+    // attach the map object to the component"s state
+    this.setState({ map });
   }
 
   public componentWillMount() {
@@ -130,7 +133,6 @@ export class HEREMap
       secure,
     } = this.props;
 
-    cache(getScriptMap(secure === true));
     const stylesheetUrl = `${secure === true ? "https:" : ""}//js.api.here.com/v3/3.0/mapsjs-ui.css`;
     getLink(stylesheetUrl, "HERE Maps UI");
   }
