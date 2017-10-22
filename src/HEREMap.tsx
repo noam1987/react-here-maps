@@ -8,11 +8,6 @@ import getLink from "./utils/get-link";
 import getPlatform from "./utils/get-platform";
 import getScriptMap from "./utils/get-script-map";
 
-require('./srcFiles/mapsjs-core')
-require('./srcFiles/mapsjs-mapevents')
-require('./srcFiles/mapsjs-service')
-require('./srcFiles/mapsjs-ui')
-
 // declare an interface containing the required and potential
 // props that can be passed to the HEREMap component
 export interface HEREMapProps extends H.Map.Options {
@@ -73,6 +68,11 @@ export class HEREMap
   }
 
   public componentDidMount() {
+    require('./srcFiles/mapsjs-core');
+    require('./srcFiles/mapsjs-mapevents');
+    require('./srcFiles/mapsjs-service');
+    require('./srcFiles/mapsjs-ui');
+    
     const {
       appId,
       appCode,
