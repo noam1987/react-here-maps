@@ -155,14 +155,17 @@ export class HEREMap
       </div>
     );
   }
+
   private resizeMap() {
     const {
       map,
     } = this.state;
+
     if (map) {
       map.getViewPort().resize();
     }
   }
 }
+
 // make the HEREMap component the default export
 export default HEREMap;

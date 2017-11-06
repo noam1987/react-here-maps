@@ -17,7 +17,7 @@ gulp.task('default', ['transpile'], function() {
 
 // transpilation task from typescript to es5 javascript
 gulp.task('transpile', function() {
-  return gulp.src(['src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx', 'typings/index.d.ts', 'node_modules/typescript/lib/lib.es6.d.ts'])
+  return gulp.src(['src/**/*.ts', 'src/**/*.tsx', 'typings/index.d.ts', 'node_modules/typescript/lib/lib.es6.d.ts'])
     .pipe(tsProject())
     .pipe(gulp.dest('dist'));
 });
