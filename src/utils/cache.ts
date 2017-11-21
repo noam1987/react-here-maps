@@ -121,6 +121,7 @@ export function onAllLoad(callback: AllCallback) {
  */
 export function getScript(url: string, name: string): ScriptState {
   // if (!loadedScripts.has(name) && !document.querySelector(`script[src="${url}"]`)) {
+
   if (!loadedScripts.has(name)) {
     const tag: HTMLScriptElement = document.createElement("script");
 
