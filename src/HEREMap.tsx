@@ -107,7 +107,7 @@ export class HEREMap
         // MapEvents enables the event system
         // Behavior implements default interactions for pan/zoom
         const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-
+        behavior.disable(H.mapevents.Behavior.WHEELZOOM);
         // create the default UI for the map
         const ui = H.ui.UI.createDefault(map, defaultLayers);
 
