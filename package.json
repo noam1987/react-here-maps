@@ -1,6 +1,6 @@
 {
   "name": "cwt-map",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "React.js HERE Maps component",
   "main": "dist/main.js",
   "scripts": {
@@ -11,7 +11,9 @@
     "coverage:remap": "remap-istanbul -i coverage/coverage.json -o coverage/coverage.json -t json -e node_modules,test",
     "coverage:report": "istanbul report",
     "coverage:post": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "lint": "tslint --config tslint.json --project tsconfig.json --type-check"
+    "lint": "tslint --config tslint.json --project tsconfig.json --type-check",
+    "prepublishOnly": "npm run gulp",
+    "gulp": "gulp"
   },
   "repository": {
     "type": "git",
